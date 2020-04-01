@@ -68,4 +68,3 @@ class FileStorage:
             k = "{}.{}".format(type(obj).__name__, obj.id)
             if k == self.__objects:
                 del self.__objects[k]
-                self.save()
