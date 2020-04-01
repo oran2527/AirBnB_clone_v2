@@ -51,7 +51,7 @@ class DBStorage:
         d = {}
 
         if cls:
-            obj = self.__session.query().all()
+            obj = self.__session.query(cls).all()
         else:
             mycls = ['State', 'City']
             obj = []

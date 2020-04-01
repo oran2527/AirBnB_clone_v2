@@ -66,4 +66,6 @@ class FileStorage:
         """delete object as argument"""
         if obj:
             k = "{}.{}".format(type(obj).__name__, obj.id)
-            del self.__objects[k]
+            if k == self.__objects:
+                del self.__objects[k]
+                self.save()
