@@ -25,7 +25,7 @@ class DBStorage:
 
         try:
             self.__engine = create_engine(
-                'mysql+mysqldb://{}:{}@{}/{}'.
+                'mysql+mysqldb://{}:{}@{}:3306/{}'.
                 format(
                    getenv('HBNB_MYSQL_USER'),
                    getenv('HBNB_MYSQL_PWD'),
@@ -51,15 +51,15 @@ class DBStorage:
         d = {}
 
         if cls:
-            obj = self.__session.query(cls).all()
+            obj = self.__session.query().all()
         else:
-            mycls = ['State', 'City', 'User', 'Place', 'Amenity', 'Review']
+            mycls = ['State', 'City']
             obj = []
             for namecls in mycls:
-                for o in self.__session.query(namecls):
+                for o in self.__session.query(eval(namecls)):
                     obj.append(o)
         for item in obj:
-            k = type(item).__name__ + '.' + obj.id
+            k = type(item).__name__ + '.' + str(item.id)
             d[k] = item
         return d
 
@@ -73,7 +73,6 @@ class DBStorage:
             )
         )
         self.__session = S()
-        print(self.__session)
 
     def new(self, obj):
         """  add the object to the current database session """
@@ -87,4 +86,4 @@ class DBStorage:
     def delete(self, obj=None):
         """delete obj"""
         if obj:
-            self.__session.delete()
+            self.__session.delete(obj)
