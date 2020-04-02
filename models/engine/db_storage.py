@@ -53,7 +53,7 @@ class DBStorage:
         if cls:
             obj = self.__session.query(cls).all()
         else:
-            mycls = ['State', 'City', 'User', 'Place', 'Review']
+            mycls = ['State', 'City', 'User', 'Place', 'Amenity', 'Review']
             obj = []
             for namecls in mycls:
                 for o in self.__session.query(eval(namecls)):
