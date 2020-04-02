@@ -46,5 +46,15 @@ class TestDBStorage(unittest.TestCase):
         p = style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'should be db')
+    def test_all(self):
+        storage = DBStorage()
+        storage.reload()
+        current_count = len(storage.all())
+        State(name="Valle").save()
+        storage.save()
+        new = len(storage.all())
+        self.assertIs(new, current_count + 1) 
+
 if __name__ == "__main__":
     unittest.main()
