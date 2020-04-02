@@ -87,4 +87,3 @@ class DBStorage:
         """delete obj"""
         if obj:
             self.__session.delete(obj)
-
