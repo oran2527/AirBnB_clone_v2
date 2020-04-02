@@ -28,4 +28,4 @@ class Review(BaseModel, Base):
         String(60),
         ForeignKey('users.id'),
         nullable=False,
-    ) 
+    )

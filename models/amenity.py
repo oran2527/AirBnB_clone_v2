@@ -12,7 +12,7 @@ class Amenity(BaseModel, Base):
     """
     class.
     """
-    
+
     __tablename__ = 'amenities'
 
     name = Column(
@@ -21,6 +21,6 @@ class Amenity(BaseModel, Base):
      )
 
     place_amenities = relationship(
-        'Place',
+        "Place",
         secondary=place_amenity
     )
