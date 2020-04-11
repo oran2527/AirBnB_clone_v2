@@ -11,6 +11,7 @@ from fabric.api import local, env, put, run
 
 env.hosts = ['35.231.52.206', '54.226.104.83']
 env.password = 'Ironmaiden2*'
+env.user = 'ubuntu'
 
 
 def do_pack():
