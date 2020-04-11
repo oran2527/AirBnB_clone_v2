@@ -13,7 +13,6 @@ env.hosts = ['35.231.52.206', '54.226.104.83']
 env.user = 'ubuntu'
 
 
-
 def do_pack():
     ''' function to pack in tgz file '''
     if not os.path.exists('./versions'):
