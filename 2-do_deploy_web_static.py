@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 ''' point 1 create tgz '''
 import os
-import os.path
+from os.path import isfile
 import datetime
 from fabric.api import local, env, put, run
 ''' os.paht = routes to directories and files, create folders '''
@@ -11,6 +11,7 @@ from fabric.api import local, env, put, run
 
 env.hosts = ['35.231.52.206', '54.226.104.83']
 env.user = 'ubuntu'
+
 
 
 def do_pack():
@@ -36,7 +37,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     ''' function to deploy archive '''
-    if not os.path.exists(archive_path):
+    if not isfile(archive_path):
         return False
     else:
         put("{}".format(archive_path), "/tmp/")
