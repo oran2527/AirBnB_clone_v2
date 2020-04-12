@@ -5,12 +5,13 @@ from os.path import isfile
 import datetime
 from fabric.api import local, env, put, run, execute
 import pathlib
+import re
 ''' os.paht = routes to directories and files, create folders '''
 ''' fabric.api = create tgz files '''
 ''' datetime = in order to get current date and time '''
 
 
-env.hosts = ['54.226.104.83']
+env.hosts = ['35.231.52.206', '54.226.104.83']
 env.user = 'ubuntu'
 
 
@@ -70,27 +71,31 @@ def deploy():
 def do_clean(number=0):
     ''' clean the tgz files and folders inside web servers '''
     count = 0
-    delrow = 0
+    p = ""
+    pp = ""
+    ppp = ""
     list_path = []
     for path in pathlib.Path("./versions").iterdir():
-        if path.is_file():            
+        if path.is_file():
             count += 1
     if number == '2' and count > 2:
         for path in pathlib.Path("./versions").iterdir():
             if path.is_file() and count > 2:
-                list_path.append(path)
+                p = str(path)
+                pp = re.sub('versions/', '', p)
+                ppp = re.sub('.tgz', '', pp)
+                list_path.append(ppp)
                 os.remove("./{}".format(path))
                 count -= 1
     if (number == '0' or number == '1') and count > 1:
         for path in pathlib.Path("./versions").iterdir():
             if path.is_file() and count > 1:
-                list_path.append(path)
+                p = str(path)
+                pp = re.sub('versions/', '', p)
+                ppp = re.sub('.tgz', '', pp)
+                list_path.append(ppp)
                 os.remove("./{}".format(path))
                 count -= 1
     for i in range(0, len(list_path)):
-        n = list_path[i]
-        print("listado {}".format(n))
-        n = n.replace("versions/", "")
-        n = n.replace(".tgz", "")
-        print("final {}".format(n))
-        '''run('rm -rf /data/web_static/releases/{}'.format(newnew))'''
+        new = list_path[i]
+        run('rm -rf /data/web_static/releases/{}'.format(new))
