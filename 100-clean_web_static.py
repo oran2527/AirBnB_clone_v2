@@ -87,7 +87,7 @@ def do_clean(number=0):
                 ppp = re.sub('.tgz', '', pp)
                 list_path.append(ppp)
                 os.remove("./{}".format(path))
-                count -= 1    
+                count -= 1
     for i in range(0, len(list_path)):
         new = list_path[i]
         run('rm -rf /data/web_static/releases/{}'.format(new))
