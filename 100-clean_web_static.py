@@ -12,6 +12,7 @@ import re
 
 
 env.hosts = ['35.231.52.206', '54.226.104.83']
+'''env.hosts = ['54.226.104.83']'''
 env.user = 'ubuntu'
 
 
@@ -78,24 +79,15 @@ def do_clean(number=0):
     for path in pathlib.Path("./versions").iterdir():
         if path.is_file():
             count += 1
-    if number == '2' and count > 2:
+    if count > eval(number):
         for path in pathlib.Path("./versions").iterdir():
-            if path.is_file() and count > 2:
+            if path.is_file() and count > eval(number):
                 p = str(path)
                 pp = re.sub('versions/', '', p)
                 ppp = re.sub('.tgz', '', pp)
                 list_path.append(ppp)
                 os.remove("./{}".format(path))
-                count -= 1
-    if (number == '0' or number == '1') and count > 1:
-        for path in pathlib.Path("./versions").iterdir():
-            if path.is_file() and count > 1:
-                p = str(path)
-                pp = re.sub('versions/', '', p)
-                ppp = re.sub('.tgz', '', pp)
-                list_path.append(ppp)
-                os.remove("./{}".format(path))
-                count -= 1
+                count -= 1    
     for i in range(0, len(list_path)):
         new = list_path[i]
         run('rm -rf /data/web_static/releases/{}'.format(new))
