@@ -67,5 +67,10 @@ def list_state():
 ', states=storage.all(State).values())
 
 
+@app.teardown_appcontext
+def ses_close():
+    '''close session'''
+    storage.close()
+    	
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="5000")
