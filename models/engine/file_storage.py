@@ -30,7 +30,7 @@ class FileStorage:
         o = {}
         for k, v in self.__objects.items():
             if cls.__name__ == type(v).__name__:
-                o[k] = v
+                o[k] = v        
         return o
 
     def new(self, obj):
@@ -66,4 +66,9 @@ class FileStorage:
         """delete object as argument"""
         if obj:
             k = "{}.{}".format(type(obj).__name__, obj.id)
-            del self.__objects[k]
+            self.__objects.pop(k, 0)
+            self.save()
+
+    def close(self):
+        """call reload method"""
+        self.reload()

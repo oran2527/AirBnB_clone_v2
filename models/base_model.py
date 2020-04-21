@@ -2,7 +2,7 @@
 """This is the base model class for AirBnB"""
 import uuid
 import models
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 
@@ -50,11 +50,16 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class__":
+                if key != "__class__" and hasattr(self, key):
                     setattr(self, key, value)
+                if self.created_at is None:
+                    self.created_at = datetime.now()
+                if self.updated_at is None:
+                    self.updated_at = datetime.now()
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """returns a string
@@ -81,12 +86,12 @@ class BaseModel:
         Return:
             returns a dictionary of all the key values in __dict__
         """
-        my_dict = dict(self.__dict__)
+        my_dict = dict(self.__dict__)        
         if "_sa_instance_state" in my_dict.keys():
-            del my_dict["_sa_instance_state"]
+            del(my_dict["_sa_instance_state"])
         my_dict["__class__"] = str(type(self).__name__)
+        my_dict["updated_at"] = self.updated_at.isoformat()            
         my_dict["created_at"] = self.created_at.isoformat()
-        my_dict["updated_at"] = self.updated_at.isoformat()
         return my_dict
 
     def delete(self):

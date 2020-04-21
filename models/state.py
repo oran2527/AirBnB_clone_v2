@@ -2,9 +2,10 @@
 """This is the state class"""
 from models.base_model import BaseModel, Base
 import models
+from models.city import City
 from sqlalchemy import Column, String
 from os import getenv
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 
 class State(BaseModel, Base):
@@ -31,6 +32,6 @@ class State(BaseModel, Base):
         def cities(self):
             mycities = []
             for id, c in models.storage.all(City).items():
-                if self.id == c.state.id:
+                if self.id == c.state_id:
                     mycities.append(c)
             return mycities
