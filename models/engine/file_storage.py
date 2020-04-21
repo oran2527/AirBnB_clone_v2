@@ -30,7 +30,7 @@ class FileStorage:
         o = {}
         for k, v in self.__objects.items():
             if cls.__name__ == type(v).__name__:
-                o[k] = v        
+                o[k] = v
         return o
 
     def new(self, obj):
