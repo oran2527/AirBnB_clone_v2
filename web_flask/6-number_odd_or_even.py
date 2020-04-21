@@ -48,7 +48,8 @@ def int_template(n):
     return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<int:n>', methods=['GET'], strict_slashes=False)
+@app.route('/number_odd_or_even/<int:n>', methods=['GET\
+'], strict_slashes=False)
 def int_odd_even_template(n):
     '''route number_odd_even_template integer function'''
     if n % 2 == 0:
