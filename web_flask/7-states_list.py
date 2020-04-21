@@ -68,7 +68,7 @@ def list_state():
 
 
 @app.teardown_appcontext
-def ses_close():
+def ses_close(response_or_exc):
     '''close session'''
     storage.close()
     	
