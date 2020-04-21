@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<HTML lang="en">
+	<HEAD>
+		<TITLE>HBNB</TITLE>
+	</HEAD>
+	<BODY>
+
+        {% if flag == 1 %}         
+		<H1>States</H1>
+        {% endif %}
+        {% if flag == 2 %}
+		<H1>State: {{ st.name }}</H1>
+		<H3>Cities:</H3>
+        {% endif %}
+        {% if flag == 3 %}
+		<H1>{{ nf }}</H1>
+        {% endif %}	
+                {% if flag == 1 %}	
+		<UL>
+                {% for state in states|sort(attribute='name') %}
+			<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+                {% endfor %}
+		</UL>
+                {% endif %}
+                {% if flag == 2 %}
+                <UL>
+                {% for city in st.cities|sort(attribute='name') %}
+			<LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
+		{% endfor %}
+		</UL>	
+                {% endif %}
+	</BODY>
+</HTML>
